@@ -3,24 +3,22 @@ import { useState } from "react";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
 import { 
-  Coins, 
   Hand, 
   FileText, 
   Scissors,
-  Trophy,
   RotateCcw,
   ArrowLeft,
-  Swords
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import snakeImg from "@/assets/snake-character.png";
 
 type Choice = "stone" | "paper" | "scissors" | null;
 type Result = "win" | "lose" | "draw";
 
-const choices: { id: Choice; icon: any; label: string }[] = [
-  { id: "stone", icon: Hand, label: "Stone" },
-  { id: "paper", icon: FileText, label: "Paper" },
-  { id: "scissors", icon: Scissors, label: "Scissors" },
+const choices: { id: Choice; icon: any; label: string; emoji: string }[] = [
+  { id: "stone", icon: Hand, label: "Stone", emoji: "🪨" },
+  { id: "paper", icon: FileText, label: "Leaf", emoji: "🍃" },
+  { id: "scissors", icon: Scissors, label: "Claw", emoji: "🦀" },
 ];
 
 const SPSGame = () => {
@@ -55,7 +53,6 @@ const SPSGame = () => {
     setPlayerChoice(choice);
     setIsRevealing(true);
     
-    // AI makes random choice
     const aiPick = choices[Math.floor(Math.random() * choices.length)].id;
     
     setTimeout(() => {
@@ -106,24 +103,16 @@ const SPSGame = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring" }}
-              className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                playerWon 
-                  ? "bg-gradient-to-br from-primary to-secondary" 
-                  : "bg-red-500/20"
-              }`}
+              className="text-7xl mb-6"
             >
-              {playerWon ? (
-                <Trophy className="w-12 h-12 text-primary-foreground" />
-              ) : (
-                <Swords className="w-12 h-12 text-red-400" />
-              )}
+              {playerWon ? "🏆" : "🐍"}
             </motion.div>
             
-            <h2 className="font-display text-3xl font-bold mb-2">
+            <h2 className="font-display text-3xl mb-2">
               {playerWon ? (
-                <>You <span className="gradient-text">Won!</span></>
+                <>You <span className="gradient-text">Won!</span> 🎉</>
               ) : (
-                <>Better <span className="text-red-400">Luck</span> Next Time</>
+                <>Snake <span className="text-secondary">Wins!</span> 🐍</>
               )}
             </h2>
             
@@ -132,17 +121,16 @@ const SPSGame = () => {
             </p>
             
             {playerWon && (
-              <div className="flex items-center justify-center gap-2 text-2xl font-bold text-yellow-400 mb-8">
-                <Coins className="w-8 h-8" />
-                +{winnings} Coins
+              <div className="flex items-center justify-center gap-2 text-2xl font-bold text-secondary mb-8">
+                🍌 +{winnings} Bananas
               </div>
             )}
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/games" className="btn-neon-outline">
-                Back to Games
+                Back to Jungle
               </Link>
-              <button onClick={resetGame} className="btn-neon flex items-center justify-center gap-2">
+              <button onClick={resetGame} className="btn-jungle flex items-center justify-center gap-2">
                 <RotateCcw className="w-5 h-5" />
                 Play Again
               </button>
@@ -166,27 +154,31 @@ const SPSGame = () => {
             animate={{ opacity: 1, y: 0 }}
             className="glass-card p-8 text-center max-w-md w-full"
           >
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-secondary to-neon-purple flex items-center justify-center mx-auto mb-6">
-              <Swords className="w-10 h-10 text-secondary-foreground" />
-            </div>
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-24 h-24 rounded-full overflow-hidden border-2 border-secondary/30 mx-auto mb-6"
+            >
+              <img src={snakeImg} alt="Snake Opponent" className="w-full h-full object-cover" />
+            </motion.div>
             
-            <h1 className="font-display text-3xl font-bold mb-2">
-              Stone Paper <span className="text-secondary neon-text-magenta">Scissors</span>
+            <h1 className="font-display text-3xl mb-2">
+              Stone Leaf <span className="text-secondary jungle-glow-gold">Claw!</span>
             </h1>
             <p className="text-muted-foreground mb-8">
-              Win 3 out of 5 rounds to double your bet!
+              Beat the Snake 3 out of 5 rounds to double your bet! 🐍
             </p>
             
             <div className="mb-6">
-              <label className="text-sm text-muted-foreground mb-2 block">
-                Place Your Bet
+              <label className="text-sm text-muted-foreground mb-2 block font-bold">
+                🍌 Place Your Bet
               </label>
               <div className="flex gap-2 justify-center">
                 {[25, 50, 100, 200].map((amount) => (
                   <button
                     key={amount}
                     onClick={() => setBetAmount(amount)}
-                    className={`px-4 py-2 rounded-xl font-medium transition-all ${
+                    className={`px-4 py-2 rounded-xl font-bold transition-all ${
                       betAmount === amount
                         ? "bg-secondary text-secondary-foreground"
                         : "bg-muted/50 text-muted-foreground hover:bg-muted"
@@ -199,17 +191,17 @@ const SPSGame = () => {
             </div>
             
             <div className="flex items-center justify-center gap-2 text-lg mb-6">
-              <Coins className="w-6 h-6 text-yellow-400" />
+              <span>🍌</span>
               <span className="font-bold">{betAmount}</span>
               <span className="text-muted-foreground">→ Win</span>
-              <span className="font-bold text-green-400">{betAmount * 2}</span>
+              <span className="font-bold text-primary">{betAmount * 2} 🍌</span>
             </div>
             
             <button
               onClick={() => setGameStarted(true)}
-              className="btn-neon w-full"
+              className="btn-jungle w-full text-lg"
             >
-              Start Game
+              🐍 Challenge Snake!
             </button>
             
             <Link 
@@ -217,7 +209,7 @@ const SPSGame = () => {
               className="inline-flex items-center gap-2 mt-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Games
+              Back to Jungle
             </Link>
           </motion.div>
         </main>
@@ -242,21 +234,21 @@ const SPSGame = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-sm text-muted-foreground">Round</span>
-                <p className="font-display text-2xl font-bold">{currentRound}/{totalRounds}</p>
+                <p className="font-display text-2xl">{currentRound}/{totalRounds}</p>
               </div>
               <div className="text-center">
                 <span className="text-sm text-muted-foreground">Score</span>
-                <p className="font-display text-2xl font-bold">
-                  <span className="text-green-400">{playerWins}</span>
+                <p className="font-display text-2xl">
+                  <span className="text-primary">{playerWins}</span>
                   <span className="text-muted-foreground mx-2">-</span>
-                  <span className="text-red-400">{aiWins}</span>
+                  <span className="text-destructive">{aiWins}</span>
                 </p>
               </div>
               <div className="text-right">
-                <span className="text-sm text-muted-foreground">Prize Pool</span>
+                <span className="text-sm text-muted-foreground">Prize</span>
                 <div className="flex items-center gap-1 justify-end">
-                  <Coins className="w-5 h-5 text-yellow-400" />
-                  <span className="font-display text-2xl font-bold text-yellow-400">{betAmount * 2}</span>
+                  <span>🍌</span>
+                  <span className="font-display text-2xl text-secondary">{betAmount * 2}</span>
                 </div>
               </div>
             </div>
@@ -272,12 +264,12 @@ const SPSGame = () => {
             <div className="grid grid-cols-3 gap-4 mb-8">
               {/* Player Side */}
               <div className="text-center">
-                <span className="text-sm text-muted-foreground mb-2 block">You</span>
+                <span className="text-sm text-muted-foreground mb-2 block">You 🐾</span>
                 <motion.div
                   animate={playerChoice ? { scale: [1, 1.1, 1] } : {}}
                   className={`w-24 h-24 mx-auto rounded-2xl flex items-center justify-center ${
                     playerChoice
-                      ? "bg-gradient-to-br from-primary to-secondary"
+                      ? "bg-gradient-to-br from-primary to-jungle-emerald"
                       : "bg-muted/50"
                   }`}
                 >
@@ -285,11 +277,9 @@ const SPSGame = () => {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
+                      className="text-4xl"
                     >
-                      {(() => {
-                        const choice = choices.find(c => c.id === playerChoice);
-                        return choice ? <choice.icon className="w-12 h-12 text-primary-foreground" /> : null;
-                      })()}
+                      {choices.find(c => c.id === playerChoice)?.emoji}
                     </motion.div>
                   )}
                 </motion.div>
@@ -297,18 +287,18 @@ const SPSGame = () => {
 
               {/* VS */}
               <div className="flex items-center justify-center">
-                <span className="font-display text-3xl font-bold text-muted-foreground">VS</span>
+                <span className="font-display text-3xl text-muted-foreground">VS</span>
               </div>
 
               {/* AI Side */}
               <div className="text-center">
-                <span className="text-sm text-muted-foreground mb-2 block">AI</span>
+                <span className="text-sm text-muted-foreground mb-2 block">Snake 🐍</span>
                 <motion.div
                   animate={aiChoice ? { scale: [1, 1.1, 1] } : isRevealing ? { rotate: [0, 360] } : {}}
                   transition={isRevealing && !aiChoice ? { duration: 0.5, repeat: Infinity } : {}}
                   className={`w-24 h-24 mx-auto rounded-2xl flex items-center justify-center ${
                     aiChoice
-                      ? "bg-gradient-to-br from-secondary to-neon-purple"
+                      ? "bg-gradient-to-br from-secondary to-jungle-amber"
                       : "bg-muted/50"
                   }`}
                 >
@@ -316,11 +306,9 @@ const SPSGame = () => {
                     <motion.div
                       initial={{ scale: 0, rotate: 180 }}
                       animate={{ scale: 1, rotate: 0 }}
+                      className="text-4xl"
                     >
-                      {(() => {
-                        const choice = choices.find(c => c.id === aiChoice);
-                        return choice ? <choice.icon className="w-12 h-12 text-secondary-foreground" /> : null;
-                      })()}
+                      {choices.find(c => c.id === aiChoice)?.emoji}
                     </motion.div>
                   )}
                 </motion.div>
@@ -334,18 +322,18 @@ const SPSGame = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mb-6"
               >
-                <span className={`font-display text-2xl font-bold ${
+                <span className={`font-display text-2xl ${
                   results[results.length - 1] === "win" 
-                    ? "text-green-400" 
+                    ? "text-primary" 
                     : results[results.length - 1] === "lose"
-                    ? "text-red-400"
-                    : "text-yellow-400"
+                    ? "text-destructive"
+                    : "text-secondary"
                 }`}>
                   {results[results.length - 1] === "win" 
-                    ? "You Win This Round!" 
+                    ? "🎉 You Win This Round!" 
                     : results[results.length - 1] === "lose"
-                    ? "AI Wins This Round!"
-                    : "It's a Draw!"}
+                    ? "🐍 Snake Wins This Round!"
+                    : "🤝 It's a Draw!"}
                 </span>
               </motion.div>
             )}
@@ -353,7 +341,7 @@ const SPSGame = () => {
             {/* Choice Buttons */}
             {!isRevealing && (
               <div>
-                <p className="text-center text-muted-foreground mb-4">Make your choice</p>
+                <p className="text-center text-muted-foreground mb-4 font-bold">Choose your weapon!</p>
                 <div className="flex justify-center gap-4">
                   {choices.map((choice) => (
                     <motion.button
@@ -361,10 +349,10 @@ const SPSGame = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => makeChoice(choice.id)}
-                      className="w-20 h-20 rounded-2xl bg-muted/50 hover:bg-muted flex flex-col items-center justify-center gap-1 transition-colors"
+                      className="w-24 h-24 rounded-2xl bg-muted/50 hover:bg-muted flex flex-col items-center justify-center gap-1 transition-colors border border-primary/10 hover:border-primary/30"
                     >
-                      <choice.icon className="w-8 h-8" />
-                      <span className="text-xs text-muted-foreground">{choice.label}</span>
+                      <span className="text-3xl">{choice.emoji}</span>
+                      <span className="text-xs text-muted-foreground font-bold">{choice.label}</span>
                     </motion.button>
                   ))}
                 </div>
@@ -382,13 +370,13 @@ const SPSGame = () => {
             {[...Array(totalRounds)].map((_, i) => (
               <div
                 key={i}
-                className={`w-10 h-10 rounded-lg flex items-center justify-center font-medium ${
+                className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold ${
                   results[i] === "win"
-                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                    ? "bg-primary/20 text-primary border border-primary/30"
                     : results[i] === "lose"
-                    ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                    ? "bg-destructive/20 text-destructive border border-destructive/30"
                     : results[i] === "draw"
-                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                    ? "bg-secondary/20 text-secondary border border-secondary/30"
                     : i === currentRound - 1
                     ? "bg-primary/20 text-primary border border-primary/30"
                     : "bg-muted/50 text-muted-foreground"

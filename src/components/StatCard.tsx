@@ -8,9 +8,10 @@ interface StatCardProps {
   change?: string;
   trend?: "up" | "down";
   delay?: number;
+  emoji?: string;
 }
 
-const StatCard = ({ title, value, icon: Icon, change, trend, delay = 0 }: StatCardProps) => {
+const StatCard = ({ title, value, icon: Icon, change, trend, delay = 0, emoji }: StatCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -20,13 +21,13 @@ const StatCard = ({ title, value, icon: Icon, change, trend, delay = 0 }: StatCa
     >
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-4">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <Icon className="w-6 h-6 text-primary" />
+          <div className="text-3xl">
+            {emoji || "📊"}
           </div>
           {change && (
             <span
-              className={`text-sm font-medium ${
-                trend === "up" ? "text-green-400" : "text-red-400"
+              className={`text-sm font-bold ${
+                trend === "up" ? "text-primary" : "text-destructive"
               }`}
             >
               {trend === "up" ? "+" : "-"}{change}
@@ -34,8 +35,8 @@ const StatCard = ({ title, value, icon: Icon, change, trend, delay = 0 }: StatCa
           )}
         </div>
 
-        <h3 className="text-muted-foreground text-sm font-medium mb-1">{title}</h3>
-        <p className="font-display text-3xl font-bold">{value}</p>
+        <h3 className="text-muted-foreground text-sm font-bold mb-1">{title}</h3>
+        <p className="font-display text-3xl">{value}</p>
       </div>
     </motion.div>
   );

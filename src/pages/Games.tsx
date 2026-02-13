@@ -7,37 +7,41 @@ import { Brain, Swords, Users, Gamepad2 } from "lucide-react";
 const Games = () => {
   const games = [
     {
-      title: "Mind Quest",
-      description: "Embark on an AI-powered journey with personalized questions based on your interests. Complete 5 questions per level and earn coins as you progress.",
+      title: "Jungle Quest",
+      description: "Embark on wisdom challenges crafted by the jungle animals. Complete 5 riddles per level and earn bananas as you climb deeper into the wild!",
       icon: Brain,
       path: "/games/mind-quest",
       gradient: "cyan" as const,
       players: "1,234",
       featured: true,
+      emoji: "🦉",
     },
     {
-      title: "SPS vs AI",
-      description: "Challenge our smart AI in Stone-Paper-Scissors. Bet coins and win 2x if you beat the AI in 3 out of 5 rounds.",
+      title: "Arena vs AI",
+      description: "Challenge the cunning Snake in Stone-Paper-Scissors. Bet bananas and win 2x if you defeat them in 3 out of 5 rounds!",
       icon: Gamepad2,
       path: "/games/sps-ai",
       gradient: "magenta" as const,
       players: "567",
+      emoji: "🐍",
     },
     {
       title: "PvP Arena",
-      description: "Real-time matchmaking against players worldwide. Prove your skills in competitive matches.",
+      description: "Real-time matchmaking against adventurers worldwide. Prove your skills in competitive jungle duels!",
       icon: Swords,
       path: "/games/pvp",
       gradient: "purple" as const,
       players: "892",
+      emoji: "⚔️",
     },
     {
-      title: "Private Rooms",
-      description: "Create or join private rooms with unique 4-character codes. Play with friends in exclusive matches.",
+      title: "Secret Dens",
+      description: "Create or join private dens with unique 4-character codes. Play with your pack in exclusive matches!",
       icon: Users,
       path: "/games/private",
       gradient: "cyan" as const,
       players: "234",
+      emoji: "🏕️",
     },
   ];
 
@@ -54,11 +58,11 @@ const Games = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
-              Choose Your <span className="gradient-text">Battle</span>
+            <h1 className="font-display text-4xl sm:text-5xl mb-4">
+              Choose Your <span className="gradient-text">Adventure</span> 🌴
             </h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              From mind-bending quests to competitive PvP action - pick your game and start earning.
+              From wisdom quests to arena battles — pick your path through the jungle and start earning bananas!
             </p>
           </motion.div>
 
@@ -84,18 +88,19 @@ const Games = () => {
             transition={{ delay: 0.5 }}
             className="mt-12 glass-card p-8"
           >
-            <h2 className="font-display text-2xl font-bold mb-6 text-center">
-              Live <span className="text-primary">Statistics</span>
+            <h2 className="font-display text-2xl mb-6 text-center">
+              Jungle <span className="text-primary">Activity</span> 🐾
             </h2>
             <div className="grid sm:grid-cols-4 gap-6">
               {[
-                { label: "Active Players", value: "2,893" },
-                { label: "Games Today", value: "12,456" },
-                { label: "Coins Won", value: "1.2M" },
-                { label: "Quests Completed", value: "45,678" },
+                { label: "Active Explorers", value: "2,893", emoji: "🐾" },
+                { label: "Games Today", value: "12,456", emoji: "🎮" },
+                { label: "Bananas Won", value: "1.2M", emoji: "🍌" },
+                { label: "Quests Completed", value: "45,678", emoji: "🏆" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="font-display text-3xl font-bold gradient-text mb-1">
+                  <div className="text-2xl mb-1">{stat.emoji}</div>
+                  <div className="font-display text-3xl gradient-text mb-1">
                     {stat.value}
                   </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>

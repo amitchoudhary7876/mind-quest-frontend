@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Coins, User, Menu, X, Gamepad2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -8,10 +8,10 @@ const Navbar = () => {
   const location = useLocation();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Games", path: "/games" },
-    { name: "Social", path: "/social" },
+    { name: "🏠 Home", path: "/" },
+    { name: "🗺️ Dashboard", path: "/dashboard" },
+    { name: "🎮 Games", path: "/games" },
+    { name: "🐾 Pack", path: "/social" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -26,11 +26,9 @@ const Navbar = () => {
         <div className="glass-card px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Gamepad2 className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="font-display font-bold text-xl gradient-text hidden sm:block">
-              Mind Quest
+            <div className="text-3xl">🌿</div>
+            <span className="font-display text-xl gradient-text hidden sm:block">
+              Jungle Quest
             </span>
           </Link>
 
@@ -40,9 +38,9 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-medium transition-all duration-300 ${
+                className={`font-semibold transition-all duration-300 ${
                   isActive(link.path)
-                    ? "text-primary neon-text-cyan"
+                    ? "text-primary jungle-glow-green"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -53,15 +51,15 @@ const Navbar = () => {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/50">
-              <Coins className="w-5 h-5 text-yellow-400" />
-              <span className="font-semibold text-foreground">1,250</span>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/10 border border-secondary/20">
+              <span className="text-lg">🍌</span>
+              <span className="font-bold text-secondary">1,250</span>
             </div>
             <Link
               to="/auth"
-              className="btn-neon text-sm py-2"
+              className="btn-jungle text-sm py-2"
             >
-              Get Started
+              Join the Pack
             </Link>
           </div>
 
@@ -87,7 +85,7 @@ const Navbar = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`font-medium py-2 ${
+                  className={`font-semibold py-2 ${
                     isActive(link.path)
                       ? "text-primary"
                       : "text-muted-foreground"
@@ -99,9 +97,9 @@ const Navbar = () => {
               <Link
                 to="/auth"
                 onClick={() => setIsOpen(false)}
-                className="btn-neon text-center mt-2"
+                className="btn-jungle text-center mt-2"
               >
-                Get Started
+                Join the Pack
               </Link>
             </div>
           </motion.div>

@@ -4,15 +4,11 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
 import ProgressBar from "@/components/ProgressBar";
 import { 
-  Brain, 
-  Coins, 
-  Clock, 
   ChevronRight, 
-  Trophy,
-  Sparkles,
   ArrowLeft
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import owlImg from "@/assets/owl-character.png";
 
 const MindQuestGame = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -68,26 +64,25 @@ const MindQuestGame = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.2, type: "spring" }}
-                  className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-6"
+                  className="text-7xl mb-6"
                 >
-                  <Trophy className="w-12 h-12 text-primary-foreground" />
+                  🏆
                 </motion.div>
                 
-                <h2 className="font-display text-3xl font-bold mb-2">
+                <h2 className="font-display text-3xl mb-2">
                   Level <span className="gradient-text">Complete!</span>
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  You've successfully completed Level {level}
+                  You've conquered Level {level} of the jungle! 🌿
                 </p>
                 
-                <div className="flex items-center justify-center gap-2 text-2xl font-bold text-yellow-400 mb-8">
-                  <Coins className="w-8 h-8" />
-                  +{coinsReward} Coins
+                <div className="flex items-center justify-center gap-2 text-2xl font-bold text-secondary mb-8">
+                  🍌 +{coinsReward} Bananas
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/games" className="btn-neon-outline">
-                    Back to Games
+                    Back to Jungle
                   </Link>
                   <button 
                     onClick={() => {
@@ -95,20 +90,18 @@ const MindQuestGame = () => {
                       setAnswers([]);
                       setGameState("playing");
                     }}
-                    className="btn-neon"
+                    className="btn-jungle"
                   >
-                    Next Level
+                    🌿 Next Level
                   </button>
                 </div>
               </>
             ) : (
               <>
-                <div className="w-24 h-24 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
-                  <Brain className="w-12 h-12 text-red-400" />
-                </div>
+                <div className="text-7xl mb-6">😤</div>
                 
-                <h2 className="font-display text-3xl font-bold mb-2">
-                  Keep <span className="text-red-400">Trying!</span>
+                <h2 className="font-display text-3xl mb-2">
+                  Keep <span className="text-destructive">Trying!</span>
                 </h2>
                 <p className="text-muted-foreground mb-6">
                   You need at least 3 thoughtful answers to pass. You had {validAnswers}.
@@ -120,9 +113,9 @@ const MindQuestGame = () => {
                     setAnswers([]);
                     setGameState("playing");
                   }}
-                  className="btn-neon"
+                  className="btn-jungle"
                 >
-                  Try Again
+                  🔄 Try Again
                 </button>
               </>
             )}
@@ -147,13 +140,11 @@ const MindQuestGame = () => {
           >
             <Link to="/games" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft className="w-5 h-5" />
-              <span>Exit</span>
+              <span>Exit Jungle</span>
             </Link>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
-                <Coins className="w-5 h-5 text-yellow-400" />
-                <span className="font-semibold text-yellow-400">+{coinsReward}</span>
-              </div>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/10 border border-secondary/20">
+              <span className="text-lg">🍌</span>
+              <span className="font-bold text-secondary">+{coinsReward}</span>
             </div>
           </motion.div>
 
@@ -166,16 +157,16 @@ const MindQuestGame = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-primary-foreground" />
+                <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-primary/30">
+                  <img src={owlImg} alt="Wise Owl" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h1 className="font-display text-xl font-bold">Mind Quest</h1>
-                  <p className="text-sm text-muted-foreground">Level {level}</p>
+                  <h1 className="font-display text-xl">Jungle Quest</h1>
+                  <p className="text-sm text-muted-foreground">Level {level} — Deep Jungle</p>
                 </div>
               </div>
               <div className="text-right">
-                <span className="font-display text-2xl font-bold gradient-text">
+                <span className="font-display text-2xl gradient-text">
                   {currentQuestion + 1}/{totalQuestions}
                 </span>
               </div>
@@ -192,11 +183,11 @@ const MindQuestGame = () => {
             className="glass-card p-8 mb-6"
           >
             <div className="flex items-center gap-2 text-primary mb-4">
-              <Sparkles className="w-5 h-5" />
-              <span className="text-sm font-medium">AI Generated Question</span>
+              <span className="text-lg">🦉</span>
+              <span className="text-sm font-bold">Wise Owl asks...</span>
             </div>
             
-            <h2 className="font-display text-2xl font-bold mb-6">
+            <h2 className="font-display text-2xl mb-6">
               {questions[currentQuestion]}
             </h2>
             
@@ -208,15 +199,15 @@ const MindQuestGame = () => {
             />
             
             <div className="flex items-center justify-between mt-4">
-              <span className={`text-sm ${answer.length >= 10 ? "text-green-400" : "text-muted-foreground"}`}>
+              <span className={`text-sm ${answer.length >= 10 ? "text-primary" : "text-muted-foreground"}`}>
                 {answer.length} characters {answer.length < 10 && "(min 10)"}
               </span>
               <button
                 onClick={handleSubmit}
                 disabled={answer.trim().length < 10}
-                className="btn-neon flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-jungle flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {currentQuestion < totalQuestions - 1 ? "Next Question" : "Complete"}
+                {currentQuestion < totalQuestions - 1 ? "Next Question" : "Complete Quest"}
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -230,16 +221,16 @@ const MindQuestGame = () => {
             className="glass-card p-4"
           >
             <div className="flex items-center gap-4">
-              <span className="text-sm text-muted-foreground">Answers submitted:</span>
+              <span className="text-sm text-muted-foreground">🐾 Progress:</span>
               <div className="flex gap-2">
                 {[...Array(totalQuestions)].map((_, i) => (
                   <div
                     key={i}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-medium ${
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
                       i < answers.length
                         ? answers[i].length >= 20
-                          ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                          : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                          ? "bg-primary/20 text-primary border border-primary/30"
+                          : "bg-secondary/20 text-secondary border border-secondary/30"
                         : i === currentQuestion
                         ? "bg-primary/20 text-primary border border-primary/30"
                         : "bg-muted/50 text-muted-foreground"

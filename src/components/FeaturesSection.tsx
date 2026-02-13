@@ -1,42 +1,47 @@
 import { motion } from "framer-motion";
-import { Brain, Swords, Users, Trophy, Coins, Shield } from "lucide-react";
+import owlImg from "@/assets/owl-character.png";
+import pantherImg from "@/assets/panther-character.png";
+import snakeImg from "@/assets/snake-character.png";
 
 const features = [
   {
-    icon: Brain,
-    title: "AI-Powered Questions",
-    description: "Personalized questions based on your interests and personality profile.",
-    color: "primary",
+    emoji: "🦉",
+    image: owlImg,
+    title: "Wisdom Challenges",
+    description: "Wise Owl crafts personalized questions based on your interests and jungle spirit.",
+    color: "primary" as const,
   },
   {
-    icon: Swords,
-    title: "Real-Time PvP",
-    description: "Challenge players worldwide in fast-paced competitive matches.",
-    color: "secondary",
+    emoji: "🐆",
+    image: pantherImg,
+    title: "Arena Battles",
+    description: "Challenge Shadow Panther and other animals in fast-paced competitive matches.",
+    color: "secondary" as const,
   },
   {
-    icon: Users,
-    title: "Social Hub",
-    description: "Connect with friends, chat in real-time, and build your network.",
-    color: "primary",
+    emoji: "🐾",
+    title: "The Pack",
+    description: "Connect with your pack, chat in real-time, and build your jungle network.",
+    color: "primary" as const,
   },
   {
-    icon: Trophy,
-    title: "Achievements",
-    description: "Unlock badges and rewards as you progress through your journey.",
-    color: "secondary",
+    emoji: "🏆",
+    title: "Jungle Trophies",
+    description: "Unlock badges and treasures as you explore deeper into the jungle.",
+    color: "secondary" as const,
   },
   {
-    icon: Coins,
-    title: "Coin Economy",
-    description: "Earn coins, place bets, and watch your wealth grow with victories.",
-    color: "primary",
+    emoji: "🍌",
+    title: "Banana Economy",
+    description: "Earn bananas, place bets, and grow your stash with every victory.",
+    color: "primary" as const,
   },
   {
-    icon: Shield,
-    title: "Private Rooms",
-    description: "Create exclusive rooms with codes to play with your inner circle.",
-    color: "secondary",
+    emoji: "🐍",
+    image: snakeImg,
+    title: "Secret Dens",
+    description: "Create exclusive dens with codes to play with your inner circle of friends.",
+    color: "secondary" as const,
   },
 ];
 
@@ -51,11 +56,11 @@ const FeaturesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            Unleash Your <span className="gradient-text">Potential</span>
+          <h2 className="font-display text-3xl sm:text-4xl mb-4">
+            Explore the <span className="gradient-text">Wild</span> 🌴
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Experience a gaming platform designed to challenge your mind and connect you with like-minded individuals.
+            Every creature in the jungle has something to teach you. Discover your path through challenges, battles, and friendships.
           </p>
         </motion.div>
 
@@ -69,22 +74,24 @@ const FeaturesSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="glass-card-hover p-6 group"
             >
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-4 ${
-                  feature.color === "primary"
-                    ? "bg-primary/10"
-                    : "bg-secondary/10"
-                }`}
-              >
-                <feature.icon
-                  className={`w-7 h-7 ${
-                    feature.color === "primary"
-                      ? "text-primary"
-                      : "text-secondary"
-                  }`}
-                />
+              <div className="flex items-center gap-3 mb-4">
+                {feature.image ? (
+                  <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-primary/20">
+                    <img src={feature.image} alt={feature.title} className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  <div
+                    className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl ${
+                      feature.color === "primary"
+                        ? "bg-primary/10"
+                        : "bg-secondary/10"
+                    }`}
+                  >
+                    {feature.emoji}
+                  </div>
+                )}
               </div>
-              <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+              <h3 className="font-display text-xl mb-2 group-hover:text-primary transition-colors">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground text-sm">

@@ -1,11 +1,21 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Brain, Zap, Users, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import jungleHero from "@/assets/jungle-hero.jpg";
+import owlImg from "@/assets/owl-character.png";
+import pantherImg from "@/assets/panther-character.png";
+import snakeImg from "@/assets/snake-character.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 px-4">
-      <div className="container mx-auto">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 px-4 overflow-hidden">
+      {/* Hero background image */}
+      <div className="absolute inset-0 z-0">
+        <img src={jungleHero} alt="" className="w-full h-full object-cover opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+      </div>
+
+      <div className="container mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div
@@ -20,21 +30,21 @@ const HeroSection = () => {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
             >
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">AI-Powered Gaming Experience</span>
+              <span className="text-lg">🦁</span>
+              <span className="text-sm font-bold text-primary">Wild Adventure Awaits!</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6"
             >
-              Challenge Your{" "}
-              <span className="gradient-text">Mind</span>
+              Welcome to the{" "}
+              <span className="gradient-text">Jungle</span>
               <br />
-              Discover Your{" "}
-              <span className="text-secondary neon-text-magenta">Quest</span>
+              Start Your{" "}
+              <span className="text-secondary jungle-glow-gold">Quest!</span>
             </motion.h1>
 
             <motion.p
@@ -43,8 +53,8 @@ const HeroSection = () => {
               transition={{ delay: 0.4 }}
               className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0"
             >
-              Embark on an AI-driven journey of self-discovery. Answer personalized questions,
-              compete in real-time battles, and connect with a global community of thinkers.
+              Embark on a wild adventure through the jungle! Answer clever riddles from wise animals,
+              battle in the arena, and grow your pack in this untamed world of discovery.
             </motion.p>
 
             <motion.div
@@ -53,12 +63,12 @@ const HeroSection = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Link to="/auth" className="btn-neon flex items-center justify-center gap-2">
-                Start Your Quest
+              <Link to="/auth" className="btn-jungle flex items-center justify-center gap-2 text-lg">
+                🌿 Enter the Jungle
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link to="/games" className="btn-neon-outline flex items-center justify-center gap-2">
-                Explore Games
+                🎮 Explore Games
               </Link>
             </motion.div>
 
@@ -70,19 +80,19 @@ const HeroSection = () => {
               className="grid grid-cols-3 gap-6 mt-12"
             >
               {[
-                { value: "50K+", label: "Players" },
-                { value: "1M+", label: "Quests Completed" },
-                { value: "4.9★", label: "Rating" },
+                { value: "50K+", label: "Adventurers", emoji: "🐾" },
+                { value: "1M+", label: "Quests Done", emoji: "🏆" },
+                { value: "4.9★", label: "Rating", emoji: "⭐" },
               ].map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
-                  <div className="font-display text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="font-display text-2xl text-secondary">{stat.emoji} {stat.value}</div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Hero Visual */}
+          {/* Right Content - Animal Characters */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -90,47 +100,46 @@ const HeroSection = () => {
             className="relative hidden lg:block"
           >
             <div className="relative w-full aspect-square max-w-lg mx-auto">
-              {/* Outer glow ring */}
+              {/* Glowing ring */}
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-primary/30"
+                className="absolute inset-0 rounded-full border-2 border-primary/20"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               />
-              
-              {/* Middle ring */}
+
+              {/* Center character - Owl (Wisdom) */}
               <motion.div
-                className="absolute inset-8 rounded-full border border-secondary/40"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
+                className="absolute inset-16 rounded-full overflow-hidden border-4 border-secondary/30"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img src={owlImg} alt="Wise Owl" className="w-full h-full object-cover" />
+              </motion.div>
 
-              {/* Center orb */}
-              <div className="absolute inset-16 glass-card rounded-full flex items-center justify-center animate-pulse-glow">
-                <Brain className="w-24 h-24 text-primary" />
-              </div>
+              {/* Floating characters */}
+              <motion.div
+                className="absolute top-0 left-1/4 w-24 h-24 rounded-2xl overflow-hidden border-2 border-primary/30 glass-card"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img src={pantherImg} alt="Panther" className="w-full h-full object-cover" />
+              </motion.div>
 
-              {/* Floating icons */}
-              {[
-                { Icon: Zap, position: "top-0 left-1/4", delay: 0 },
-                { Icon: Users, position: "bottom-8 right-0", delay: 1 },
-                { Icon: Brain, position: "top-1/4 right-0", delay: 2 },
-              ].map(({ Icon, position, delay }, index) => (
-                <motion.div
-                  key={index}
-                  className={`absolute ${position}`}
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay,
-                  }}
-                >
-                  <div className="glass-card p-4 rounded-xl">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                </motion.div>
-              ))}
+              <motion.div
+                className="absolute bottom-8 right-0 w-24 h-24 rounded-2xl overflow-hidden border-2 border-secondary/30 glass-card"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              >
+                <img src={snakeImg} alt="Snake" className="w-full h-full object-cover" />
+              </motion.div>
+
+              <motion.div
+                className="absolute top-1/4 right-0 glass-card p-4 rounded-xl"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              >
+                <span className="text-3xl">🐒</span>
+              </motion.div>
             </div>
           </motion.div>
         </div>
