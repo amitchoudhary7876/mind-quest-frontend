@@ -5,36 +5,32 @@ import StatCard from "@/components/StatCard";
 import ProgressBar from "@/components/ProgressBar";
 import GameCard from "@/components/GameCard";
 import { 
-  Coins, 
-  Trophy, 
-  Target, 
-  Zap, 
   Brain, 
   Swords, 
   Star,
   Clock,
-  TrendingUp
 } from "lucide-react";
+import owlImg from "@/assets/owl-character.png";
 
 const Dashboard = () => {
   const stats = [
-    { title: "Total Coins", value: "1,250", icon: Coins, change: "12%", trend: "up" as const },
-    { title: "Current Level", value: "15", icon: Target, change: "1", trend: "up" as const },
-    { title: "Win Rate", value: "67%", icon: Trophy, change: "5%", trend: "up" as const },
-    { title: "XP Today", value: "340", icon: Zap, change: "89", trend: "up" as const },
+    { title: "Total Bananas", value: "1,250", icon: Brain, change: "12%", trend: "up" as const, emoji: "🍌" },
+    { title: "Jungle Level", value: "15", icon: Brain, change: "1", trend: "up" as const, emoji: "🌿" },
+    { title: "Win Rate", value: "67%", icon: Brain, change: "5%", trend: "up" as const, emoji: "🏆" },
+    { title: "XP Today", value: "340", icon: Brain, change: "89", trend: "up" as const, emoji: "⚡" },
   ];
 
   const achievements = [
-    { name: "First Quest", description: "Complete your first quest", unlocked: true, icon: Star },
-    { name: "Coin Collector", description: "Earn 500 coins", unlocked: true, icon: Coins },
-    { name: "Brain Master", description: "Answer 100 questions correctly", unlocked: false, icon: Brain },
-    { name: "PvP Champion", description: "Win 10 PvP matches", unlocked: false, icon: Swords },
+    { name: "First Quest", description: "Complete your first jungle quest", unlocked: true, emoji: "🌟" },
+    { name: "Banana Collector", description: "Earn 500 bananas", unlocked: true, emoji: "🍌" },
+    { name: "Jungle Master", description: "Answer 100 questions correctly", unlocked: false, emoji: "🦁" },
+    { name: "Arena Champion", description: "Win 10 PvP matches", unlocked: false, emoji: "⚔️" },
   ];
 
   const recentActivity = [
-    { action: "Completed Mind Quest Level 15", time: "2 min ago", coins: "+75" },
-    { action: "Won SPS match vs Player123", time: "15 min ago", coins: "+50" },
-    { action: "Daily login bonus", time: "1 hour ago", coins: "+20" },
+    { action: "Completed Jungle Quest Level 15", time: "2 min ago", coins: "+75 🍌" },
+    { action: "Won SPS match vs WildCat99", time: "15 min ago", coins: "+50 🍌" },
+    { action: "Daily jungle bonus", time: "1 hour ago", coins: "+20 🍌" },
   ];
 
   return (
@@ -48,14 +44,19 @@ const Dashboard = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            className="mb-8 flex items-center gap-4"
           >
-            <h1 className="font-display text-3xl sm:text-4xl font-bold mb-2">
-              Welcome back, <span className="gradient-text">Player</span>
-            </h1>
-            <p className="text-muted-foreground">
-              Ready to continue your quest? Here's your progress overview.
-            </p>
+            <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-primary/30">
+              <img src={owlImg} alt="Your avatar" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h1 className="font-display text-3xl sm:text-4xl mb-1">
+                Welcome back, <span className="gradient-text">Explorer</span> 🌿
+              </h1>
+              <p className="text-muted-foreground">
+                The jungle awaits! Here's your adventure overview.
+              </p>
+            </div>
           </motion.div>
 
           {/* Stats Grid */}
@@ -66,7 +67,7 @@ const Dashboard = () => {
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6">
-            {/* Left Column - Progress & Quick Play */}
+            {/* Left Column */}
             <div className="lg:col-span-2 space-y-6">
               {/* Level Progress */}
               <motion.div
@@ -75,19 +76,19 @@ const Dashboard = () => {
                 transition={{ delay: 0.3 }}
                 className="glass-card p-6"
               >
-                <h2 className="font-display text-xl font-semibold mb-4">Level Progress</h2>
+                <h2 className="font-display text-xl mb-4">🗺️ Jungle Progress</h2>
                 <div className="flex items-center gap-6 mb-4">
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <span className="font-display text-3xl font-bold">15</span>
+                    <span className="font-display text-3xl">15</span>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">Level 15</span>
+                      <span className="font-bold">Level 15 — Deep Jungle</span>
                       <span className="text-muted-foreground text-sm">2,340 / 3,000 XP</span>
                     </div>
                     <ProgressBar value={2340} max={3000} showValue={false} />
                     <p className="text-sm text-muted-foreground mt-2">
-                      660 XP until next level
+                      660 XP until you reach the Ancient Temple 🏛️
                     </p>
                   </div>
                 </div>
@@ -99,29 +100,31 @@ const Dashboard = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <h2 className="font-display text-xl font-semibold mb-4">Quick Play</h2>
+                <h2 className="font-display text-xl mb-4">🎮 Quick Play</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <GameCard
-                    title="Mind Quest"
-                    description="AI-powered personality questions"
+                    title="Jungle Quest"
+                    description="Wisdom challenges from the animals"
                     icon={Brain}
                     path="/games/mind-quest"
                     gradient="cyan"
                     players="1.2K"
+                    emoji="🦉"
                   />
                   <GameCard
-                    title="SPS Arena"
-                    description="Stone Paper Scissors battles"
+                    title="Arena Battle"
+                    description="Stone Paper Scissors showdowns"
                     icon={Swords}
                     path="/games/sps"
                     gradient="magenta"
                     players="856"
+                    emoji="⚔️"
                   />
                 </div>
               </motion.div>
             </div>
 
-            {/* Right Column - Achievements & Activity */}
+            {/* Right Column */}
             <div className="space-y-6">
               {/* Achievements */}
               <motion.div
@@ -131,7 +134,7 @@ const Dashboard = () => {
                 className="glass-card p-6"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-display text-xl font-semibold">Achievements</h2>
+                  <h2 className="font-display text-xl">🏅 Trophies</h2>
                   <span className="text-sm text-muted-foreground">2/4</span>
                 </div>
                 <div className="space-y-3">
@@ -144,21 +147,15 @@ const Dashboard = () => {
                           : "bg-muted/30 opacity-60"
                       }`}
                     >
-                      <div className={`p-2 rounded-lg ${
-                        achievement.unlocked ? "bg-primary/20" : "bg-muted"
-                      }`}>
-                        <achievement.icon className={`w-5 h-5 ${
-                          achievement.unlocked ? "text-primary" : "text-muted-foreground"
-                        }`} />
-                      </div>
+                      <div className="text-2xl">{achievement.emoji}</div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm truncate">{achievement.name}</p>
+                        <p className="font-bold text-sm truncate">{achievement.name}</p>
                         <p className="text-xs text-muted-foreground truncate">
                           {achievement.description}
                         </p>
                       </div>
                       {achievement.unlocked && (
-                        <Star className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                        <Star className="w-5 h-5 text-secondary flex-shrink-0" />
                       )}
                     </div>
                   ))}
@@ -174,7 +171,7 @@ const Dashboard = () => {
               >
                 <div className="flex items-center gap-2 mb-4">
                   <Clock className="w-5 h-5 text-primary" />
-                  <h2 className="font-display text-xl font-semibold">Recent Activity</h2>
+                  <h2 className="font-display text-xl">Recent Activity</h2>
                 </div>
                 <div className="space-y-4">
                   {recentActivity.map((activity, index) => (
@@ -184,7 +181,7 @@ const Dashboard = () => {
                         <p className="text-sm truncate">{activity.action}</p>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-xs text-muted-foreground">{activity.time}</span>
-                          <span className="text-xs text-green-400 font-medium">{activity.coins}</span>
+                          <span className="text-xs text-secondary font-bold">{activity.coins}</span>
                         </div>
                       </div>
                     </div>
