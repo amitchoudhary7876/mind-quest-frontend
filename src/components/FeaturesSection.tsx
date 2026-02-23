@@ -31,9 +31,9 @@ const features = [
     color: "secondary" as const,
   },
   {
-    emoji: "🍌",
-    title: "Banana Economy",
-    description: "Earn bananas, place bets, and grow your stash with every victory.",
+    emoji: "🪙",
+    title: "Coin Economy",
+    description: "Earn coins, place bets, and grow your stash with every victory.",
     color: "primary" as const,
   },
   {

@@ -1,20 +1,38 @@
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, LogOut } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useGameProgress } from "../hooks/useGameProgress";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const { coins } = useGameProgress();
 
-  const navLinks = [
-    { name: "🏠 Home", path: "/" },
-    { name: "🗺️ Dashboard", path: "/dashboard" },
-    { name: "🎮 Games", path: "/games" },
-    { name: "🐾 Pack", path: "/social" },
+  // Define nav links with visibility rules
+  const allLinks = [
+    { name: "🗺️ Dashboard", path: "/dashboard", protected: true },
+    { name: "🎮 Games", path: "/games", protected: true },
+    { name: "🐾 Pack", path: "/social", protected: true },
   ];
 
+  const visibleLinks = allLinks.filter(link => {
+    if (user) return true; // Show all to logged in? Or restrict Home? Let's show all.
+    return !link.protected; // Only public links if not logged in
+  });
+
   const isActive = (path: string) => location.pathname === path;
+
+
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    setIsOpen(false);
+  };
 
   return (
     <motion.nav
@@ -28,13 +46,13 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <div className="text-3xl">🌿</div>
             <span className="font-display text-xl gradient-text hidden sm:block">
-              Jungle Quest
+              Mind Quest
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {visibleLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -51,16 +69,28 @@ const Navbar = () => {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/10 border border-secondary/20">
-              <span className="text-lg">🍌</span>
-              <span className="font-bold text-secondary">1,250</span>
-            </div>
-            <Link
-              to="/auth"
-              className="btn-jungle text-sm py-2"
-            >
-              Join the Pack
-            </Link>
+            {user ? (
+              <>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/10 border border-secondary/20">
+                  <span className="text-lg">💰</span>
+                  <span className="font-bold text-secondary">{coins.toLocaleString()}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="p-2 text-muted-foreground hover:text-red-400 transition-colors"
+                  title="Logout"
+                >
+                  <LogOut className="w-5 h-5" />
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                className="btn-jungle text-sm py-2"
+              >
+                Join the Pack
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,7 +110,7 @@ const Navbar = () => {
             className="md:hidden mt-2 glass-card p-4"
           >
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {visibleLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -94,13 +124,25 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/auth"
-                onClick={() => setIsOpen(false)}
-                className="btn-jungle text-center mt-2"
-              >
-                Join the Pack
-              </Link>
+              {user ? (
+                 <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                    <div className="flex items-center gap-2">
+                         <span className="text-lg">💰</span>
+                         <span className="font-bold text-secondary">{coins.toLocaleString()}</span>
+                    </div>
+                    <button onClick={handleLogout} className="text-red-400 flex items-center gap-2">
+                        <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                 </div>
+              ) : (
+                <Link
+                  to="/auth"
+                  onClick={() => setIsOpen(false)}
+                  className="btn-jungle text-center mt-2"
+                >
+                  Join the Pack
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

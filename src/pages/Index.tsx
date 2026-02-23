@@ -31,7 +31,7 @@ const Index = () => {
                   Ready to Join the <span className="gradient-text">Pack?</span>
                 </h2>
                 <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-                  Thousands of adventurers are already exploring the jungle. Answer the call of the wild and start your journey today!
+                  Thousands of adventurers are already exploring Mind Quest. Answer the call of the wild and start your journey today!
                 </p>
                 <Link to="/auth" className="btn-jungle inline-flex items-center gap-2 text-lg">
                   🌿 Create Free Account
@@ -52,10 +52,10 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🌿</span>
-                <span className="font-display text-xl gradient-text">Jungle Quest</span>
+                <span className="font-display text-xl gradient-text">Mind Quest</span>
               </div>
               <p className="text-muted-foreground text-sm">
-                © 2024 Jungle Quest. All rights reserved. 🐾
+                © 2024 Mind Quest. All rights reserved. 🐾
               </p>
             </div>
           </div>

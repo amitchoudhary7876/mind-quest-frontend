@@ -7,8 +7,8 @@ import { Brain, Swords, Users, Gamepad2 } from "lucide-react";
 const Games = () => {
   const games = [
     {
-      title: "Jungle Quest",
-      description: "Embark on wisdom challenges crafted by the jungle animals. Complete 5 riddles per level and earn bananas as you climb deeper into the wild!",
+      title: "Mind Quest",
+      description: "Embark on wisdom challenges crafted by the jungle animals. Complete 5 MCQ challenges per level and earn coins as you climb deeper into the wild!",
       icon: Brain,
       path: "/games/mind-quest",
       gradient: "cyan" as const,
@@ -18,7 +18,7 @@ const Games = () => {
     },
     {
       title: "Arena vs AI",
-      description: "Challenge the cunning Snake in Stone-Paper-Scissors. Bet bananas and win 2x if you defeat them in 3 out of 5 rounds!",
+      description: "Challenge the cunning Snake in Stone-Paper-Scissors. Bet coins and win 2x if you defeat them in 3 out of 5 rounds!",
       icon: Gamepad2,
       path: "/games/sps-ai",
       gradient: "magenta" as const,
@@ -62,7 +62,7 @@ const Games = () => {
               Choose Your <span className="gradient-text">Adventure</span> 🌴
             </h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              From wisdom quests to arena battles — pick your path through the jungle and start earning bananas!
+              From wisdom quests to arena battles — pick your path through the Mind Quest and start earning coins!
             </p>
           </motion.div>
 
@@ -89,13 +89,13 @@ const Games = () => {
             className="mt-12 glass-card p-8"
           >
             <h2 className="font-display text-2xl mb-6 text-center">
-              Jungle <span className="text-primary">Activity</span> 🐾
+              Mind <span className="text-primary">Activity</span> 🐾
             </h2>
             <div className="grid sm:grid-cols-4 gap-6">
               {[
                 { label: "Active Explorers", value: "2,893", emoji: "🐾" },
                 { label: "Games Today", value: "12,456", emoji: "🎮" },
-                { label: "Bananas Won", value: "1.2M", emoji: "🍌" },
+                { label: "Coins Won", value: "1.2M", emoji: "🪙" },
                 { label: "Quests Completed", value: "45,678", emoji: "🏆" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
