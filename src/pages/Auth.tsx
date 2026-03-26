@@ -163,6 +163,7 @@ const Auth = () => {
         toast.success("Email verified! You can now enter the jungle.");
         setIsLogin(true);
         setShowOTP(false);
+        setFormData(prev => ({ ...prev, otp: ["", "", "", "", "", ""] }));
       }
       setIsResetPassword(false); // Just in case
     } catch (error: any) {
@@ -284,7 +285,10 @@ const Auth = () => {
           {!showOTP && !isForgotPassword && !isResetPassword && (
             <div className="flex gap-2 mb-8 p-1 bg-muted/50 rounded-xl">
               <button
-                onClick={() => { setIsLogin(true); }}
+                onClick={() => { 
+                    setIsLogin(true); 
+                    setFormData(prev => ({ ...prev, otp: ["", "", "", "", "", ""] }));
+                }}
                 className={`flex-1 py-3 rounded-lg font-bold transition-all duration-300 ${
                   isLogin
                     ? "bg-primary text-primary-foreground"
@@ -294,7 +298,10 @@ const Auth = () => {
                 🔑 Login
               </button>
               <button
-                onClick={() => { setIsLogin(false); }}
+                onClick={() => { 
+                    setIsLogin(false); 
+                    setFormData(prev => ({ ...prev, otp: ["", "", "", "", "", ""] }));
+                }}
                 className={`flex-1 py-3 rounded-lg font-bold transition-all duration-300 ${
                   !isLogin
                     ? "bg-primary text-primary-foreground"
@@ -324,6 +331,7 @@ const Auth = () => {
                         type="text"
                         maxLength={1}
                         value={digit}
+                        autoComplete="one-time-code"
                         onChange={(e) => handleOtpChange(i, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e, i)}
                         className="w-12 h-14 text-center text-xl font-bold input-glass"
@@ -593,6 +601,7 @@ const Auth = () => {
                     type="text"
                     maxLength={1}
                     value={digit}
+                    autoComplete="one-time-code"
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, i)}
                     className="w-12 h-14 text-center text-xl font-bold input-glass"

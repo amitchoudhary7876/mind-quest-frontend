@@ -81,6 +81,14 @@ class GameSocketService {
     this.socket?.on('error', callback);
   }
 
+  off(event: string, callback?: (...args: any[]) => void) {
+    if (callback) {
+      this.socket?.off(event, callback);
+    } else {
+      this.socket?.off(event);
+    }
+  }
+
   // Chat Methods
   registerUser(userId: string) {
     this.socket?.emit('register', { userId });
